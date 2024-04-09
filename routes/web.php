@@ -1,19 +1,30 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use http\Client\Request;
+use Illuminate\Http\Request;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
 Route::get('/test', function (\App\Http\Requests\TestRequest $request) {
-    $validate = makeValidator(\App\Validators\TestValidator::class, $request->all());
-    dd($validate->errors()->getMessages());
 
+    dd('Request validation completed successfully!', $request->all());
 
+});
 
-    dd('Success validation', $request->all());
+Route::get('/test-validations-error', function (Request $request) {
+
+    /**
+     * @var \Illuminate\Validation\Validator $validate
+     */
     $validate = app()->make(\App\Validators\TestValidator::class)->validateFails($request->all());
-    dd($validate, $request->all());
+
+    dd($validate->messages()->all());
+
+    // To avoid documentation and the like as shown above, you can create a global function and use it.
+
+    $validateMake = makeValidator(\App\Validators\TestValidator::class);
+
+    dd($validateMake->messages()->all());
 });
