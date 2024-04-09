@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Http\Requests;
+
 use App\Validators\TestValidator;
-use Illuminate\Foundation\Http\FormRequest;
 use Ygreis\Validator\AbstractRequest;
 
 class TestRequest extends AbstractRequest
@@ -18,23 +18,27 @@ class TestRequest extends AbstractRequest
     }
 
     /**
-     * Get custom attributes for validator errors.
-     *
-     * @return array
-     */
-    public function attributes()
-    {
-        return [];
-    }
-
-    /**
      * Get the validation rules that apply to the request.
      *
      * @return array
      */
     public function rules()
     {
-        return [];
+        return [
+            'user.age' => 'nullable|integer|min:18|max:120',
+        ];
+    }
+
+    /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        return [
+            'user.age' => 'User Age',
+        ];
     }
 
     public function validators()

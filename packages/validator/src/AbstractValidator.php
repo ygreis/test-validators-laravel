@@ -9,6 +9,7 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Validation\ValidatesWhenResolvedTrait;
 use Illuminate\Contracts\Validation\Factory as ValidationFactory;
 use Ygreis\Validator\Interfaces\AbstractValidatorInterface;
+use Illuminate\Contracts\Validation\Validator as ValidatorInterface;
 abstract class AbstractValidator implements AbstractValidatorInterface
 {
 
@@ -19,7 +20,7 @@ abstract class AbstractValidator implements AbstractValidatorInterface
      *
      * @var Container
      */
-    private $container;
+    public $container;
 
     /**
      * Data that will be validated
@@ -27,6 +28,12 @@ abstract class AbstractValidator implements AbstractValidatorInterface
      * @var array
      */
     protected $data = [];
+
+    private $rules = [];
+
+    private $attributes = [];
+
+    private $messages = [];
 
     /**
      * Validator constructor.
@@ -67,6 +74,16 @@ abstract class AbstractValidator implements AbstractValidatorInterface
     abstract public function rules(): array;
 
     /**
+     * Get the validators rules that apply to the request.
+     *
+     * @return array
+     */
+    public function validators(): array
+    {
+        return [];
+    }
+
+    /**
      * @param array $data
      * @return Validator
      * @throws ValidationException
@@ -92,10 +109,9 @@ abstract class AbstractValidator implements AbstractValidatorInterface
     /**
      * Get the validator instance for the request.
      *
-     * @return \Illuminate\Contracts\Validation\Validator
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    protected function getValidatorInstance()
+    protected function getValidatorInstance(): ValidatorInterface
     {
         $factory = $this->container->make(ValidationFactory::class);
         $validator = $this->createDefaultValidator($factory);
@@ -110,16 +126,36 @@ abstract class AbstractValidator implements AbstractValidatorInterface
     /**
      * Create the default validator instance.
      *
-     * @param \Illuminate\Contracts\Validation\Factory $factory
-     * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function createDefaultValidator(ValidationFactory $factory)
+    private function createDefaultValidator(ValidationFactory $factory): ValidatorInterface
     {
+
+        $this->prepareValidator();
+
         return $factory->make(
             $this->data,
-            $this->container->call([$this, 'rules']),
-            $this->messages(),
-            $this->attributes()
+            $this->rules,
+            $this->messages,
+            $this->attributes
         );
     }
+
+    private function prepareValidator(): void
+    {
+        foreach($this->validators() as $validator) {
+            /**
+             * @var self $makeValidator
+             */
+            $makeValidator = app()->make($validator);
+
+            $this->rules = array_merge($this->rules, $makeValidator->rules());
+            $this->messages = array_merge($this->messages, $makeValidator->messages());
+            $this->attributes = array_merge($this->attributes, $makeValidator->attributes());
+        }
+
+        $this->rules = array_merge($this->rules, $this->container->call([$this, 'rules']));
+        $this->messages = array_merge($this->messages, $this->messages());
+        $this->attributes = array_merge($this->attributes, $this->attributes());
+    }
+
 }

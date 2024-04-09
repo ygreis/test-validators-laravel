@@ -4,7 +4,7 @@ namespace App\Validators;
 
 use Ygreis\Validator\AbstractValidator;
 
-class TestValidator extends AbstractValidator
+class TestTwoValidator extends AbstractValidator
 {
     /**
      * Get custom messages for validator errors.
@@ -24,8 +24,7 @@ class TestValidator extends AbstractValidator
     public function rules(): array
     {
         return [
-            'name' => 'required|string',
-            'age' => 'nullable|integer|min:18|max:120',
+            'mother_name' => 'nullable|string|max:5'
         ];
     }
 
@@ -37,16 +36,7 @@ class TestValidator extends AbstractValidator
     public function attributes(): array
     {
         return [
-            'name' => 'Name',
-            'age' => 'Age',
+            'mother_name' => 'Mother name',
         ];
     }
-
-    public function validators(): array
-    {
-        return [
-            TestTwoValidator::class
-        ];
-    }
-
 }
