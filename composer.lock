@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "968f73bcf5520ee401d641d0d79555ec",
+    "content-hash": "49aa753fd265b5279cc73e103c9b2d0f",
     "packages": [
         {
             "name": "brick/math",
@@ -5682,6 +5682,57 @@
                 "source": "https://github.com/webmozarts/assert/tree/1.11.0"
             },
             "time": "2022-06-03T18:03:27+00:00"
+        },
+        {
+            "name": "ygreis/laravel-validators",
+            "version": "0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ygreis/laravel-validators.git",
+                "reference": "3c8a953c91b8dd21de766cc1e646f46b39b3c060"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ygreis/laravel-validators/zipball/3c8a953c91b8dd21de766cc1e646f46b39b3c060",
+                "reference": "3c8a953c91b8dd21de766cc1e646f46b39b3c060",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "^8.0|^9.0|^10.0|^11.0",
+                "php": "^7.3|^8.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/helper.php"
+                ],
+                "psr-4": {
+                    "Ygreis\\LaravelValidators\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Yallison Gabriel Reis",
+                    "email": "gabrielyallison2012@hotmail.com"
+                }
+            ],
+            "description": "Custom validations for the laravel framework",
+            "keywords": [
+                "custom validators",
+                "laravel",
+                "laravel validators",
+                "package",
+                "php"
+            ],
+            "support": {
+                "issues": "https://github.com/ygreis/laravel-validators/issues",
+                "source": "https://github.com/ygreis/laravel-validators/tree/0.1"
+            },
+            "time": "2024-04-12T12:10:09+00:00"
         }
     ],
     "packages-dev": [

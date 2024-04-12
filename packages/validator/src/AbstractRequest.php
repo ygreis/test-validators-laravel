@@ -1,8 +1,9 @@
 <?php
 
 namespace Ygreis\Validator;
-use App\Validators\TestValidator;
+
 use Illuminate\Foundation\Http\FormRequest;
+
 class AbstractRequest extends FormRequest
 {
 

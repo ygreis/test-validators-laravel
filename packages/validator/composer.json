@@ -1,0 +1,30 @@
+{
+    "name": "ygreis/laravel-validators",
+    "description": "Custom validations for the laravel framework",
+    "license": "MIT",
+    "keywords": [
+        "laravel",
+        "laravel validators",
+        "custom validators",
+        "php",
+        "package"
+    ],
+    "autoload": {
+        "files": [
+            "src/helper.php"
+        ],
+        "psr-4": {
+            "Ygreis\\LaravelValidators\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Yallison Gabriel Reis",
+            "email":  "gabrielyallison2012@hotmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.3|^8.0",
+        "laravel/framework": "^8.0|^9.0|^10.0|^11.0"
+    }
+}
